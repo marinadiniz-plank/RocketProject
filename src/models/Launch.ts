@@ -3,6 +3,8 @@ class Launch{
     launchCode: number;
     date: string;
     success: boolean;
+    rocketId: number;
+    crewId: number;
     constructor(id: number, launch: number, date: string, success: boolean){
         this.id = id;
         this.launchCode = launch;

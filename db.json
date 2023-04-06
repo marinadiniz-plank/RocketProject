@@ -1,31 +1,31 @@
 {
-    "Launch": [
-        {"id": 1, "launchCode": "BBC001", "date": "", "success": true},
-        {"id": 2, "launchCode": "BBC002", "date": "", "success": true},
-        {"id": 3, "launchCode": "BBC003", "date": "", "success": false},
-        {"id": 4, "launchCode": "BBC004", "date": "", "success": true}
+    "launch": [
+        {"id": 1, "launchCode": "BBC001", "date": "", "success": true, "rocketId": 1, "crewId": 101},
+        {"id": 2, "launchCode": "BBC002", "date": "", "success": true, "rocketId": 1, "crewId": 101},
+        {"id": 3, "launchCode": "BBC003", "date": "", "success": false, "rocketId": 1, "crewId": 105},
+        {"id": 4, "launchCode": "BBC004", "date": "", "success": true, "rocketId": 2, "crewId": 112}
     ],
-    "Crew": [
-        {"name": "Apollo V", "id": 101, "launchId": 1, "crewCrewmanId": 1},
-        {"name": "Artemis VII", "id": 112, "launchId": 4, "crewCrewmanId": 2},
-        {"name": "Artemis II", "id": 105, "launchId": 3, "crewCrewmanId": 3}
+    "crew": [
+        {"name": "Apollo V", "id": 101, "crewCrewmanId": 1},
+        {"name": "Artemis VII", "id": 112, "crewCrewmanId": 2},
+        {"name": "Artemis II", "id": 105, "crewCrewmanId": 3}
     ],
-    "CrewCrewman":[
-        {"crewCrewmanId":1, "crewId": 101, "crewmanId": 1},
-        {"crewCrewmanId":1, "crewId": 101, "crewmanId": 3},
-        {"crewCrewmanId":1, "crewId": 101, "crewmanId": 4},
-        {"crewCrewmanId":2, "crewId": 112, "crewmanId": 2},
-        {"crewCrewmanId":2, "crewId": 112, "crewmanId": 3},
-        {"crewCrewmanId":3, "crewId": 105, "crewmanId": 1}
+    "crewCrewman":[
+        {"id":1, "crewId": 101, "crewmanId": 1},
+        {"id":1, "crewId": 101, "crewmanId": 3},
+        {"id":1, "crewId": 101, "crewmanId": 4},
+        {"id":2, "crewId": 112, "crewmanId": 2},
+        {"id":2, "crewId": 112, "crewmanId": 3},
+        {"id":3, "crewId": 105, "crewmanId": 1}
     ],
-    "Crewman": [
+    "crewman": [
         {"name": "Anastasia", "id": 1, "patent": "Astrophysist"},
         {"name": "Kris", "id": 2, "patent": "Biologist"},
         {"name": "Matthew", "id": 3, "patent": "Chemist"},
         {"name": "Ashton", "id": 4, "patent": "Captain"}
     ],
-    "Rocket": [
-        {"name": "Andromeda", "id": 1, "launchId": 3},
-        {"name": "Antares", "id": 2, "launchId": 4}
+    "rocket": [
+        {"name": "Andromeda", "id": 1},
+        {"name": "Antares", "id": 2}
     ]
     }
