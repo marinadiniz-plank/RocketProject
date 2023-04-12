@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
 
-const getLaunches = (res: Response, req: Request) =>{
-
+const getLaunches = (req: Request, res: Response) =>{
+    res.status(200).send("get launch");
 };
 
-const  createLaunch = (res: Response, req: Request)=>{
-   
+const  createLaunch = (req: Request, res: Response)=>{
+    res.status(200).send("create launch");
 };
 
-const  updateLaunch = (res: Response, req: Request)=>{
-    
+const  updateLaunch = (req: Request, res: Response)=>{
+    res.status(200).send("update launch");   
 };
 
-const  deleteLaunch = (res: Response, req: Request)=>{
-    
+const  deleteLaunch = (req: Request, res: Response)=>{
+    res.status(200).send("delete launch");
 };
 
 export default {getLaunches, createLaunch, updateLaunch, deleteLaunch}

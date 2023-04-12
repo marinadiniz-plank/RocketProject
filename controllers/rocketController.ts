@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
 
-const getRockets = (res: Response, req: Request) =>{
-
+const getRockets = (req: Request, res: Response) =>{
+    res.status(200).send("get rocket");
 };
 
-const  createRocket = (res: Response, req: Request)=>{
-   
+const  createRocket = (req: Request, res: Response)=>{
+    res.status(200).send("create rocket");
 };
 
-const  updateRocket = (res: Response, req: Request)=>{
-    
+const  updateRocket = (req: Request, res: Response)=>{
+    res.status(200).send("update rocket");
 };
 
-const  deleteRocket = (res: Response, req: Request)=>{
-    
+const  deleteRocket = (req: Request, res: Response)=>{
+    res.status(200).send("delete rocket");
 };
 
 export default {getRockets, createRocket, updateRocket, deleteRocket}

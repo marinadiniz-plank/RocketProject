@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
 
-const getCrewmans = (res: Response, req: Request) =>{
-
+const getCrewmans = (req: Request, res: Response) =>{
+    res.status(200).send("get crewmans");
 };
 
-const  createCrewmans = (res: Response, req: Request)=>{
-   
+const  createCrewmans = (req: Request, res: Response)=>{
+    res.status(200).send("create crew");
 };
 
-const  updateCrewmans = (res: Response, req: Request)=>{
-    
+const  updateCrewmans = (req: Request, res: Response)=>{
+    res.status(200).send("update crewmans");
 };
 
-const  deleteCrewmans = (res: Response, req: Request)=>{
-    
+const  deleteCrewmans = (req: Request, res: Response)=>{
+    res.status(200).send("delete crewmans");
 };
 
 export default {getCrewmans, createCrewmans, updateCrewmans, deleteCrewmans}
