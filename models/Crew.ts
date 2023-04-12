@@ -1,8 +1,10 @@
+import Crewman from "./Crewman";
+
 class Crew{
-    public name: string;
+    private name: string;
     public id: number;
-    private crewCrewmanId: number;
-    constructor(name: string, id: number, crewCrewmanId: number){
+    private crewCrewmanId: Crewman[];
+    constructor(name: string, id: number, crewCrewmanId:  Crewman[]){
         this.name = name;
         this.id = id;
         this.crewCrewmanId = crewCrewmanId;

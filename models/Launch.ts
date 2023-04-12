@@ -1,10 +1,10 @@
 class Launch{
-    id: number;
-    launchCode: number;
-    date: string;
-    success: boolean;
-    rocketId: number;
-    crewId: number;
+    public id: number;
+    private launchCode: number;
+    private date: string;
+    private success: boolean;
+    private rocketId: number;
+    private crewId: number;
     constructor(id: number, launch: number, date: string, success: boolean, rocketId: number, crewId: number){
         this.id = id;
         this.launchCode = launch;
