@@ -1,19 +1,20 @@
 import { Request, Response } from "express";
+import crewmanService from "../service/crewmanService";
 
-const getCrewmans = (req: Request, res: Response) =>{
-    res.status(200).send("get crewmans");
+const getCrewmans = async (req: Request, res: Response) =>{
+    return crewmanService.getCrewmans(req, res);
 };
 
-const  createCrewmans = (req: Request, res: Response)=>{
-    res.status(200).send("create crew");
+const  createCrewmans = async (req: Request, res: Response)=>{
+    return crewmanService.createCrewman(req, res);
 };
 
-const  updateCrewmans = (req: Request, res: Response)=>{
-    res.status(200).send("update crewmans");
+const  updateCrewmans = async (req: Request, res: Response)=>{
+    return crewmanService.updateCrewman(req, res);
 };
 
-const  deleteCrewmans = (req: Request, res: Response)=>{
-    res.status(200).send("delete crewmans");
+const  deleteCrewmans = async (req: Request, res: Response)=>{
+    return crewmanService.deleteCrewman(req, res);
 };
 
 export default {getCrewmans, createCrewmans, updateCrewmans, deleteCrewmans}

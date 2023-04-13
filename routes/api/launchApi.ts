@@ -1,9 +1,10 @@
 import express from 'express';
-const router = express.Router();
 import launchController from '../../controllers/launchController';
+const router = express.Router();
 
 router.route('/')
-    .get(launchController.getLaunches);
+    .get(launchController.getLaunches)
+    .post(launchController.createLaunch);
 
 router.route('/:id')
     .get(launchController.getLaunches)

@@ -3,11 +3,11 @@ const router = express.Router();
 import crewController from '../../controllers/crewController';
 
 router.route('/')
-    .get(crewController.getCrews);
-
+    .get(crewController.getCrews)
+    .post(crewController.createCrew);
+    
 router.route('/:id')
     .get(crewController.getCrews)
-    .post(crewController.createCrew)
     .put(crewController.updateCrew)
     .delete(crewController.deleteCrew);
 

@@ -1,19 +1,20 @@
 import { Request, Response } from "express";
+import launchService from "../service/launchService";
 
-const getLaunches = (req: Request, res: Response) =>{
-    res.status(200).send("get launch");
+const getLaunches = async (req: Request, res: Response) =>{
+    return launchService.getLaunches(req, res);
 };
 
-const  createLaunch = (req: Request, res: Response)=>{
-    res.status(200).send("create launch");
+const createLaunch = async (req: Request, res: Response)=>{
+    return launchService.createLaunch(req, res);
 };
 
-const  updateLaunch = (req: Request, res: Response)=>{
-    res.status(200).send("update launch");   
+const  updateLaunch = async (req: Request, res: Response)=>{
+     return launchService.updateLaunch(req, res);
 };
 
-const  deleteLaunch = (req: Request, res: Response)=>{
-    res.status(200).send("delete launch");
+const  deleteLaunch = async (req: Request, res: Response)=>{
+    return launchService.deleteLaunch(req, res);
 };
 
 export default {getLaunches, createLaunch, updateLaunch, deleteLaunch}

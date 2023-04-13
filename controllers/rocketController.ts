@@ -1,19 +1,20 @@
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
+import rocketservice from "../service/rocketService";
 
-const getRockets = (req: Request, res: Response) =>{
-    res.status(200).send("get rocket");
+const getRockets = async (req: Request, res: Response) => {
+    return rocketservice.getRockets(req, res);
 };
 
-const  createRocket = (req: Request, res: Response)=>{
-    res.status(200).send("create rocket");
+const createRocket = async (req: Request, res: Response) => {
+    return rocketservice.createRocket(req, res);
 };
 
-const  updateRocket = (req: Request, res: Response)=>{
-    res.status(200).send("update rocket");
+const updateRocket = async (req: Request, res: Response) => {
+    return rocketservice.updateRocket(req, res);
 };
 
-const  deleteRocket = (req: Request, res: Response)=>{
-    res.status(200).send("delete rocket");
+const deleteRocket = async (req: Request, res: Response) => {
+    return rocketservice.deleteRocket(req, res);
 };
 
-export default {getRockets, createRocket, updateRocket, deleteRocket}
+export default { getRockets, createRocket, updateRocket, deleteRocket }
