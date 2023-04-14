@@ -3,55 +3,74 @@ import launch from "../models/Launch";
 const url = process.env.LOCAL_BASE_URL + "/launch";
 
 const getLaunches = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "GET",
-            headers:{
-                "Content-Type": "application/json"
-            }
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in getting launchs ${err}`);
-    };
+    const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'getting launch...');
+        })
 };
 
 const createLaunch = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "POST"
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            launchCode: req.body.launchCode,
+            data: req.body.data,
+            success: req.body.success,
+            rocketId: req.body.rocketId,
+            crewId: req.body.crewId
         })
-    }catch(err){
-        console.log(`Error in creating launchs ${err}`);
-    };
-    res.status(200).send("create launch");
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'creating launch...');
+        })
 };
 
 const updateLaunch = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "PUT"
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in updating launchs ${err}`);
-    };
-    res.status(200).send("update launch");
+    const response = await fetch(url + '/' + req.params.id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            launchCode: req.body.launchCode,
+            data: req.body.data,
+            success: req.body.success,
+            rocketId: req.body.rocketId,
+            crewId: req.body.crewId
+        })
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'updating launch...');
+        })
 };
 
 const deleteLaunch = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "DELETE"
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in deleting launchs ${err}`);
-    };
-    res.status(200).send("delete launch");
+    const response = await fetch(url + '/' + req.params.id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'deleting launch...');
+        })
 };
 
 export default { getLaunches, createLaunch, updateLaunch, deleteLaunch }

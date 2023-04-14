@@ -8,7 +8,6 @@ router.route('/')
 
 router.route('/:id')
     .get(launchController.getLaunches)
-    .post(launchController.createLaunch)
     .put(launchController.updateLaunch)
     .delete(launchController.deleteLaunch);
 

@@ -1,57 +1,68 @@
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
 import rocket from "../models/Rocket";
 const url = process.env.LOCAL_BASE_URL + "/rocket";
 
 const getRockets = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "GET",
-            headers:{
-                "Content-Type": "application/json"
-            }
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in getting rockets ${err}`);
-    };
+    const response = fetch(url + (req.params.id ? '/' + req.params.id : ""), {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'getting rocket...');
+        })
 };
 
 const createRocket = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "POST"
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: req.body.name,
         })
-    }catch(err){
-        console.log(`Error in creating rockets ${err}`);
-    };
-    res.status(200).send("create rocket");
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body)  + 'creating rocket...');
+        })
 };
 
 const updateRocket = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "PUT"
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in updating rockets ${err}`);
-    };
-    res.status(200).send("update rocket");
+    const response = await fetch(url + "/" + req.params.id, {
+        method: "PUT",        
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: req.body.name
+        })
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'updating rocket...');
+        })
 };
 
 const deleteRocket = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "DELETE"
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in deleting rockets ${err}`);
-    };
-    res.status(200).send("delete rocket");
+    const response = fetch(url + "/" + req.params.id, {
+        method: "DELETE",        
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'deleting rocket...');
+        })
 };
 
 export default { getRockets, createRocket, updateRocket, deleteRocket }

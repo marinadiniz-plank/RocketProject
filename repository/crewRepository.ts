@@ -3,55 +3,68 @@ import crew from "../models/Crew";
 const url = process.env.LOCAL_BASE_URL + "/crew";
 
 const getCrews = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "GET",
-            headers:{
-                "Content-Type": "application/json"
-            }
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in getting Crews ${err}`);
-    };
+    const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'getting crew...');
+        })
 };
 
 const createCrew = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "POST"
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: req.body.name,
+            crewCrewmanId: req.body.crewCrewmanId
         })
-    }catch(err){
-        console.log(`Error in creating Crews ${err}`);
-    };
-    res.status(200).send("create Crew");
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'creating crew...');
+        })
 };
 
 const updateCrew = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "PUT"
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in updating Crews ${err}`);
-    };
-    res.status(200).send("update Crew");
+    const response = await fetch(url + '/' + req.params.id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: req.body.name,
+            crewCrewmanId: req.body.crewCrewmanId
+        })
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'updating crew...');
+        })
 };
 
 const deleteCrew = async (req: Request, res: Response) => {
-    try{
-        const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-            method: "DELETE"
-        })    
-        res.status(200).send(await response.json());
-
-    }catch(err){
-        console.log(`Error in deleting Crews ${err}`);
-    };
-    res.status(200).send("delete Crew");
+    const response = await fetch(url + '/' + req.params.id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(body => {
+            res.status(200).send(JSON.stringify(body) + 'deleting crew...');
+        })
 };
 
 export default { getCrews, createCrew, updateCrew, deleteCrew }
