@@ -1,6 +1,10 @@
 import { Request, Response, response } from "express";
-import rocket from "../models/Rocket";
+import { AppDataSource } from '../datasource/rocketproject'
+import { Rocket } from '../models/Rocket'
 const url = process.env.LOCAL_BASE_URL + "/rocket";
+
+export const rocketRepository = AppDataSource.getRepository(Rocket)
+
 
 const getRockets = async (req: Request, res: Response) => {
     const response = fetch(url + (req.params.id ? '/' + req.params.id : ""), {

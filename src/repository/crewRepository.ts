@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import launch from "../models/Launch";
-const url = process.env.LOCAL_BASE_URL + "/launch";
+const url = process.env.LOCAL_BASE_URL + "/crew";
 
-const getLaunches = async (req: Request, res: Response) => {
+const getCrews = async (req: Request, res: Response) => {
     const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
         method: "GET"
     })
@@ -10,55 +9,49 @@ const getLaunches = async (req: Request, res: Response) => {
             return response.json();
         })
         .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'getting launch...');
+            res.status(200).send(JSON.stringify(body) + 'getting crew...');
         })
 };
 
-const createLaunch = async (req: Request, res: Response) => {
+const createCrew = async (req: Request, res: Response) => {
     const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            launchCode: req.body.launchCode,
-            data: req.body.data,
-            success: req.body.success,
-            rocketId: req.body.rocketId,
-            crewId: req.body.crewId
+            name: req.body.name,
+            crewCrewmanId: req.body.crewCrewmanId
         })
     })
         .then(response => {
             return response.json();
         })
         .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'creating launch...');
+            res.status(200).send(JSON.stringify(body) + 'creating crew...');
         })
 };
 
-const updateLaunch = async (req: Request, res: Response) => {
+const updateCrew = async (req: Request, res: Response) => {
     const response = await fetch(url + '/' + req.params.id, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            launchCode: req.body.launchCode,
-            data: req.body.data,
-            success: req.body.success,
-            rocketId: req.body.rocketId,
-            crewId: req.body.crewId
+            name: req.body.name,
+            crewCrewmanId: req.body.crewCrewmanId
         })
     })
         .then(response => {
             return response.json();
         })
         .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'updating launch...');
+            res.status(200).send(JSON.stringify(body) + 'updating crew...');
         })
 };
 
-const deleteLaunch = async (req: Request, res: Response) => {
+const deleteCrew = async (req: Request, res: Response) => {
     const response = await fetch(url + '/' + req.params.id, {
         method: "DELETE",
         headers: {
@@ -69,8 +62,8 @@ const deleteLaunch = async (req: Request, res: Response) => {
             return response.json();
         })
         .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'deleting launch...');
+            res.status(200).send(JSON.stringify(body) + 'deleting crew...');
         })
 };
 
-export default { getLaunches, createLaunch, updateLaunch, deleteLaunch }
+export default { getCrews, createCrew, updateCrew, deleteCrew }

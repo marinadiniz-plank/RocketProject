@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import crewman from "../models/Crewman";
 const url = process.env.LOCAL_BASE_URL + "/crewman";
 
 const getCrewmans = async (req: Request, res: Response) => {

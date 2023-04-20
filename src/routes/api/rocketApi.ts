@@ -1,6 +1,7 @@
 import express from 'express';
-import rocketController from '../../controllers/rocketController';
+import RocketController from '../../controllers/rocketController';
 const router = express.Router();
+const rocketController = new RocketController();
 
 router.route('/')
     .get(rocketController.getRockets)
