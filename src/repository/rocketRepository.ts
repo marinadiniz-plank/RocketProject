@@ -1,72 +1,33 @@
-import { Request, Response, response } from "express";
 import { AppDataSource } from '../datasource/rocketproject'
 import { Rocket } from '../models/Rocket'
-const url = process.env.LOCAL_BASE_URL + "/rocket";
 
 export const rocketRepository = AppDataSource.getRepository(Rocket)
 
-
-const getRockets = async (req: Request, res: Response) => {
-    const response = fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'getting rocket...');
-        })
+const getRocket = async (id: number) => {
+    const one = await rocketRepository.findOne({ where: { id: id } });
+    if(one == null)
+        throw new Error('Something bad happened');
+    return one;
 };
 
-const createRocket = async (req: Request, res: Response) => {
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: req.body.name,
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body)  + 'creating rocket...');
-        })
+const getRockets = async () => {
+    return await rocketRepository.find();
 };
 
-const updateRocket = async (req: Request, res: Response) => {
-    const response = await fetch(url + "/" + req.params.id, {
-        method: "PUT",        
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: req.body.name
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'updating rocket...');
-        })
+const createRocket = async (data: Rocket) => {
+    const rocket = rocketRepository.create(data);
+    await rocketRepository.save(data);
+    return rocket;
 };
 
-const deleteRocket = async (req: Request, res: Response) => {
-    const response = fetch(url + "/" + req.params.id, {
-        method: "DELETE",        
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'deleting rocket...');
-        })
+const updateRocket = async (id: number, data: Partial<Rocket>) => {
+    await rocketRepository.update({ id }, data);
+    return await rocketRepository.findOne({ where: { id: id } });
 };
 
-export default { getRockets, createRocket, updateRocket, deleteRocket }
+const deleteRocket = async (id: number) => {
+    await rocketRepository.delete({ id });
+    return { deleted: true };
+};
+
+export default { getRocket, getRockets, createRocket, updateRocket, deleteRocket }

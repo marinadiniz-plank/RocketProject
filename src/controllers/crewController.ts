@@ -1,36 +1,83 @@
 import { Request, Response } from "express";
 import crewService from "../service/crewService";
+import { crewmanRepository } from "../repository/crewmanRepository";
+import { Crew } from "../models/Crew";
+import { In } from "typeorm";
 
-const getCrews =async (req: Request, res: Response) =>{
-    try {
-        return crewService.getCrews(req, res);
-    } catch (err) {
-        console.log(`Error in getting crew ${err}`);
+class CrewController {
+    async getCrew(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const crew = await crewService.getCrew(id);
+            return res.json(crew);
+        } catch (err) {
+            return res.status(500).send(`Error in getting crew ${err}`);
+        };
     };
-};
 
-const  createCrew = async (req: Request, res: Response)=>{
-    try {
-        return crewService.createCrew(req, res);
-    } catch (err) {
-        console.log(`Error in getting crew ${err}`);
+    async getCrews(req: Request, res: Response) {
+        try {
+            const crew = await crewService.getCrews();
+            return res.json(crew);
+        } catch (err) {
+            return res.status(500).send(`Error in getting crews ${err}`);
+        };
     };
-};
 
-const  updateCrew = async (req: Request, res: Response)=>{
-    try {
-        return crewService.updateCrew(req, res);
-    } catch (err) {
-        console.log(`Error in getting crew ${err}`);
+    async createCrew(req: Request, res: Response) {
+        try {
+        //    console.log(req.body.name, req.body.id, req.body.crewman)
+            const crewmans = await crewmanRepository.findBy({id: In(req.body.crewman)});
+
+            if (!crewmans) {
+				return res.status(404).json({ message: 'Crewman id does not exist!' })
+			}
+         //   console.log(crewmans)
+            const newCrew = new Crew(
+                req.body.name,
+                req.body.id,
+                crewmans
+                
+        );
+            const crew = await crewService.createCrew(newCrew);
+            return res.json(crew);
+        } catch (err) {
+            return res.status(500).send(`Error in creating crew ${err}`);
+        };
     };
-};
 
-const  deleteCrew = async (req: Request, res: Response)=>{
-    try {
-        return crewService.deleteCrew(req, res);
-    } catch (err) {
-        console.log(`Error in getting crew ${err}`);
+    async updateCrew(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            if (id) {
+                const crewman = await crewmanRepository.findBy({id: In(req.body.crewman)});
+                const crewUpdate: Crew = {
+                    name: req.body.name,
+                    crewman,
+                    id: id
+                }
+                const crew = crewService.updateCrew(id, crewUpdate);
+                return res.json(crew);
+            }
+            else
+                return res.status(500).send('Crew id does not exist');
+        } catch (err) {
+            console.log(`Error in updating crew ${err}`);
+        };
     };
-};
 
-export default {getCrews, createCrew, updateCrew, deleteCrew}
+    async deleteCrew(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            if (id) {
+                const crew = crewService.deleteCrew(id);
+                return res.json(crew);
+            }
+            else
+                return res.status(500).send('Crew id does not exist');
+        } catch (err) {
+            return res.status(500).send(`Error in deleting crew ${err}`);
+        };
+    };
+}
+export default CrewController;

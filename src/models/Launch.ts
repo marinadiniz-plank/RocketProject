@@ -13,11 +13,11 @@ export class Launch{
     @Column()
     private success: boolean;
 
-    @OneToOne(() => Rocket)
+    @OneToOne(() => Rocket, {eager: true})
     @JoinColumn({name: "rocket_id"})
     rocket: Rocket;
 
-    @OneToOne(() => Crew)
+    @OneToOne(() => Crew, {eager: true})
     @JoinColumn({name: "crew_id"})
     crew: Crew;
 

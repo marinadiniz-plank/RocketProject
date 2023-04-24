@@ -1,69 +1,36 @@
-import { Request, Response } from "express";
-const url = process.env.LOCAL_BASE_URL + "/crew";
+import { AppDataSource } from "../datasource/rocketproject";
+import { Crew } from "../models/Crew";
 
-const getCrews = async (req: Request, res: Response) => {
-    const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'getting crew...');
-        })
+export const crewRepository = AppDataSource.getRepository(Crew);
+
+const getCrew = async(id: number) => {
+    const one = await crewRepository.findOne({ where: { id: id } });
+    if(one == null)
+        throw new Error('Something bad happened');
+    return one;
 };
 
-const createCrew = async (req: Request, res: Response) => {
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: req.body.name,
-            crewCrewmanId: req.body.crewCrewmanId
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'creating crew...');
-        })
+const getCrews = async () => {
+    return await crewRepository.find(); 
 };
 
-const updateCrew = async (req: Request, res: Response) => {
-    const response = await fetch(url + '/' + req.params.id, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: req.body.name,
-            crewCrewmanId: req.body.crewCrewmanId
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'updating crew...');
-        })
+const createCrew = async (data: Crew) => {
+    const crew = crewRepository.create(data);
+    await crewRepository.save(data);
+    return crew;
 };
 
-const deleteCrew = async (req: Request, res: Response) => {
-    const response = await fetch(url + '/' + req.params.id, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'deleting crew...');
-        })
+const updateCrew = async (id: number, data: Crew) => {
+    const crew = await getCrew(id);
+    Object.assign(crew, data)
+    console.log(data)
+    await crewRepository.save(crew);
+    return await crewRepository.findOne({ where: { id: id } });
 };
 
-export default { getCrews, createCrew, updateCrew, deleteCrew }
+const deleteCrew = async (id: number) => {
+    await crewRepository.delete({ id });
+    return { deleted: true };
+}
+
+export default {getCrew, getCrews, createCrew, updateCrew, deleteCrew }

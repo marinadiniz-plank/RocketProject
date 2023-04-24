@@ -8,7 +8,7 @@ router.route('/')
     .post(rocketController.createRocket);
 
 router.route('/:id')
-    .get(rocketController.getRockets)
+    .get(rocketController.getRocket)
     .put(rocketController.updateRocket)
     .delete(rocketController.deleteRocket);
 

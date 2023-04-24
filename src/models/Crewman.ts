@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable} from "typeorm";
-import { Crew } from "./Crew";
+import { Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity("crewman")
 export class Crewman{
@@ -9,16 +8,11 @@ export class Crewman{
     public id: number;
     @Column()
     private patent: string;
-    
 
-    @ManyToMany(() => Crew)
-    @JoinTable({name: "crew_crewman"})
-    crew : Crew[];
 
-    constructor(name: string, id: number, patent: string, crew: Crew[]){
+    constructor(name: string, id: number, patent: string){
         this.name=name;
         this.id=id;
         this.patent=patent;
-        this.crew=crew;
     }
 }

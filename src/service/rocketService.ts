@@ -1,20 +1,24 @@
-import { Request, Response } from "express";
+import { Rocket } from "../models/Rocket";
 import rocketRepository from "../repository/rocketRepository";
 
 export default{
-    async getRockets(req: Request, res: Response){
-        return rocketRepository.getRockets(req, res);
+    async getRocket(id: number){
+        return rocketRepository.getRocket(id);
     },
 
-    async createRocket(req: Request, res: Response){
-        return rocketRepository.createRocket(req, res);
+    async getRockets(){
+        return rocketRepository.getRockets();
     },
 
-    async updateRocket(req: Request, res: Response){
-        return rocketRepository.updateRocket(req, res);
+    async createRocket(rocket: Rocket){
+        return rocketRepository.createRocket(rocket);
     },
 
-    async deleteRocket(req: Request, res: Response){
-        return rocketRepository.deleteRocket(req, res);
+    async updateRocket(id: number, rocket: Rocket){
+        return rocketRepository.updateRocket(id, rocket);
+    },
+
+    async deleteRocket(id: number){
+        return rocketRepository.deleteRocket(id);
     }
 }

@@ -1,13 +1,15 @@
 import express from 'express';
 const router = express.Router();
-import crewController from '../../controllers/crewController';
+import CrewController from '../../controllers/crewController';
+
+const crewController = new CrewController();
 
 router.route('/')
     .get(crewController.getCrews)
     .post(crewController.createCrew);
     
 router.route('/:id')
-    .get(crewController.getCrews)
+    .get(crewController.getCrew)
     .put(crewController.updateCrew)
     .delete(crewController.deleteCrew);
 

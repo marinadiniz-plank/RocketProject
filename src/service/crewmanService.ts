@@ -1,20 +1,25 @@
 import { Request, Response } from "express";
 import crewmanRepository from "../repository/crewmanRepository";
+import { Crewman } from "../models/Crewman";
 
 export default{
-    async getCrewmans(req: Request, res: Response){
-        return crewmanRepository.getCrewmans(req, res);
+    async getCrewman(id: number){
+        return crewmanRepository.getCrewman(id);
     },
 
-    async createCrewman(req: Request, res: Response){
-        return crewmanRepository.createCrewman(req, res);
+    async getCrewmans(){
+        return crewmanRepository.getCrewmans();
     },
 
-    async updateCrewman(req: Request, res: Response){
-        return crewmanRepository.updateCrewman(req, res);
+    async createCrewman(crewman: Crewman){
+        return crewmanRepository.createCrewman(crewman);
     },
 
-    async deleteCrewman(req: Request, res: Response){
-        return crewmanRepository.deleteCrewman(req, res);
+    async updateCrewman(id: number, crewman: Crewman){
+        return crewmanRepository.updateCrewman(id, crewman);
+    },
+
+    async deleteCrewman(id: number){
+        return crewmanRepository.deleteCrewman(id);
     }
 }

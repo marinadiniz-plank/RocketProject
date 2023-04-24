@@ -1,75 +1,35 @@
-import { Request, Response } from "express";
-const url = process.env.LOCAL_BASE_URL + "/launch";
+import { Launch } from "../models/Launch";
+import { AppDataSource } from "../datasource/rocketproject";
 
-const getLaunches = async (req: Request, res: Response) => {
-    const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'getting launch...');
-        })
+export const launchRepository = AppDataSource.getRepository(Launch)
+
+const getLaunch = async (id: number) => {
+    const one = await launchRepository.findOne({ where: { id: id } });
+    if(one == null)
+        throw new Error('Something bad happened');
+    return one;
 };
 
-const createLaunch = async (req: Request, res: Response) => {
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            launchCode: req.body.launchCode,
-            data: req.body.data,
-            success: req.body.success,
-            rocketId: req.body.rocketId,
-            crewId: req.body.crewId
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'creating launch...');
-        })
+const getLaunches = async () => {
+    console.log(await launchRepository.find())
+    return await launchRepository.find();  
 };
 
-const updateLaunch = async (req: Request, res: Response) => {
-    const response = await fetch(url + '/' + req.params.id, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            launchCode: req.body.launchCode,
-            data: req.body.data,
-            success: req.body.success,
-            rocketId: req.body.rocketId,
-            crewId: req.body.crewId
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'updating launch...');
-        })
+const createLaunch = async (data: Launch) => {
+    console.log(data)
+    const launch = launchRepository.create(data);
+    await launchRepository.save(data);
+    return launch;
 };
 
-const deleteLaunch = async (req: Request, res: Response) => {
-    const response = await fetch(url + '/' + req.params.id, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'deleting launch...');
-        })
+const updateLaunch = async (id: number, data: Partial<Launch>) => {
+    await launchRepository.update({ id }, data);
+    return await launchRepository.findOne({ where: { id: id } });
 };
 
-export default { getLaunches, createLaunch, updateLaunch, deleteLaunch }
+const deleteLaunch = async (id: number) => {
+    await launchRepository.delete({ id });
+    return { deleted: true };
+};
+
+export default { getLaunch, getLaunches, createLaunch, updateLaunch, deleteLaunch }

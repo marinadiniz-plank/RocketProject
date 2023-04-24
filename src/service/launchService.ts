@@ -1,20 +1,24 @@
-import { Request, Response } from "express";
 import launchRepository from "../repository/launchRepository";
+import { Launch } from "../models/Launch";
 
 export default{
-    async getLaunches(req: Request, res: Response){
-        return launchRepository.getLaunches(req, res);
+    async getLaunch(id: number){
+        return launchRepository.getLaunch(id);
     },
 
-    async createLaunch(req: Request, res: Response){
-        return launchRepository.createLaunch(req, res);
+    async getLaunches(){
+        return launchRepository.getLaunches();
     },
 
-    async updateLaunch(req: Request, res: Response){
-        return launchRepository.updateLaunch(req, res);
+    async createLaunch(launch: Launch){
+        return launchRepository.createLaunch(launch);
     },
 
-    async deleteLaunch(req: Request, res: Response){
-        return launchRepository.deleteLaunch(req, res);
+    async updateLaunch(id: number, launch: Launch){
+        return launchRepository.updateLaunch(id, launch);
+    },
+
+    async deleteLaunch(id: number){
+        return launchRepository.deleteLaunch(id);
     }
 }

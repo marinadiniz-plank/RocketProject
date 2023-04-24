@@ -1,69 +1,33 @@
-import { Request, Response } from "express";
-const url = process.env.LOCAL_BASE_URL + "/crewman";
+import { Crewman } from "../models/Crewman";
+import { AppDataSource } from "../datasource/rocketproject";
 
-const getCrewmans = async (req: Request, res: Response) => {
-    const response = await fetch(url + (req.params.id ? '/' + req.params.id : ""), {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'getting Crewman...');
-        })
+export const crewmanRepository = AppDataSource.getRepository(Crewman)
+
+const getCrewman = async (id: number) => {
+    const one = await crewmanRepository.findOne({ where: { id: id } });
+    if(one == null)
+        throw new Error('Something bad happened');
+    return one;
 };
 
-const createCrewman = async (req: Request, res: Response) => {
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: req.body.name,
-            patent: req.body.patent
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'creating Crewman...');
-        })
+const getCrewmans = async () => {
+    return await crewmanRepository.find();
 };
 
-const updateCrewman = async (req: Request, res: Response) => {
-    const response = await fetch(url + '/' + req.params.id, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: req.body.name,
-            patent: req.body.patent
-        })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'updating Crewman...');
-        })
+const createCrewman = async (data: Crewman) => {
+    const crewman = crewmanRepository.create(data);
+    await crewmanRepository.save(data);
+    return crewman;
 };
 
-const deleteCrewman = async (req: Request, res: Response) => {
-    const response = await fetch(url + '/' + req.params.id, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(body => {
-            res.status(200).send(JSON.stringify(body) + 'deleting Crewman...');
-        })
+const updateCrewman = async  (id: number, data: Partial<Crewman>) => {
+    await crewmanRepository.update({ id }, data);
+    return await crewmanRepository.findOne({ where: { id: id } });
 };
 
-export default { getCrewmans, createCrewman, updateCrewman, deleteCrewman }
+const deleteCrewman = async (id: number) => {
+    await crewmanRepository.delete({ id });
+    return { deleted: true };
+};
+
+export default {getCrewman, getCrewmans, createCrewman, updateCrewman, deleteCrewman }

@@ -4,11 +4,11 @@ import { Crewman } from "./Crewman";
 @Entity("crew")
 export class Crew{
     @Column()
-    private name: string;
+    public name: string;
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @ManyToMany(() => Crewman)
+    @ManyToMany(() => Crewman, {eager: true})
     @JoinTable({name: "crew_crewman"})
     crewman : Crewman[];
 

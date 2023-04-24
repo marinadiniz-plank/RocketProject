@@ -1,20 +1,24 @@
-import { Request, Response } from "express";
 import crewRepository from "../repository/crewRepository";
+import { Crew } from "../models/Crew";
 
 export default{
-    async getCrews(req: Request, res: Response){
-        return crewRepository.getCrews(req, res);
+    async getCrew(id: number){
+        return crewRepository.getCrew(id);
     },
 
-    async createCrew(req: Request, res: Response){
-        return crewRepository.createCrew(req, res);
+    async getCrews(){
+        return crewRepository.getCrews();
     },
 
-    async updateCrew(req: Request, res: Response){
-        return crewRepository.updateCrew(req, res);
+    async createCrew(crew: Crew){
+        return crewRepository.createCrew(crew);
     },
 
-    async deleteCrew(req: Request, res: Response){
-        return crewRepository.deleteCrew(req, res);
+    async updateCrew(id: number, crew: Crew){
+        return crewRepository.updateCrew(id, crew);
+    },
+
+    async deleteCrew(id: number){
+        return crewRepository.deleteCrew(id);
     }
 }
