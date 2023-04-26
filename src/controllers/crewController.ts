@@ -37,7 +37,6 @@ class CrewController {
                 req.body.name,
                 req.body.id,
                 crewmans
-                
         );
             const crew = await crewService.createCrew(newCrew);
             return res.json(crew);
