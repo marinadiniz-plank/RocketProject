@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch db.json",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "author": "",
   "license": "ISC",
