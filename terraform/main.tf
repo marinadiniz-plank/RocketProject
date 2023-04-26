@@ -9,6 +9,7 @@ terraform {
 
 resource "vercel_project" "vercel_deploy" {
   name      = "rocket-project"
+  framework = "nodejs"
   git_repository = {
     type = "github"
     repo = "marinadiniz-plank/RocketProject"
