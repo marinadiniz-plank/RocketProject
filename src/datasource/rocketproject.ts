@@ -1,8 +1,4 @@
 import { DataSource } from "typeorm";
-import { Rocket } from "../models/Rocket";
-import { Launch } from "../models/Launch";
-import { Crew } from "../models/Crew";
-import { Crewman } from "../models/Crewman";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
