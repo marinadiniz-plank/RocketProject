@@ -14,7 +14,7 @@ import crewmanApi from "./routes/api/crewmanApi";
 
 
 
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 80;
 AppDataSource.initialize().then(() => {
     const app = express();
 
