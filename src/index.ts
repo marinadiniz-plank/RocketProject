@@ -24,4 +24,4 @@ AppDataSource.initialize().then(() => {
     app.use("/crewman", crewmanApi);
 
     return app.listen(PORT, () => console.log(`server running at port ${PORT}`));
-})
+}).catch(err => console.log(err));
