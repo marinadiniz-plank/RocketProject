@@ -1,10 +1,10 @@
 import "reflect-metadata";
-
 import express from "express";
-import { AppDataSource } from './datasource/rocketproject'
-
 import { config as dotenvConfig } from 'dotenv';
+
 dotenvConfig()
+
+import { AppDataSource } from './datasource/rocketproject'
 import "./database"
 
 import rocketApi from "./routes/api/rocketApi";
