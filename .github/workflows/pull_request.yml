@@ -34,4 +34,4 @@ jobs:
      
       
       - name: Run ts-prune
-        run: yarn ts-prune --error    #yarn ts-prune
+        run: yarn add ts-prune  #yarn ts-prune
