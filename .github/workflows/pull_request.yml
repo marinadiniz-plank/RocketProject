@@ -4,14 +4,19 @@ jobs:
   install:
     name: Installing Packages...
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Cache node_modules
+      - uses: actions/cache@v2
         with:
-          node-version: '12.x'
-      - name: Install dependencies
-        run: npm install
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    
+      
+      - name: Install Dependencies
+        run: yarn install
 
   unusedexports:
     name: Find unused exports (dead code)...
@@ -22,7 +27,11 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Restore node_modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    
       
       - name: Run ts-prune
         run: yarn ts-prune --error    #yarn ts-prune
