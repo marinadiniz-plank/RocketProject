@@ -1,10 +1,10 @@
 import "reflect-metadata";
 import express from "express";
 
-const Sentry = require("@sentry/node");
-Sentry.init({
-  dsn: "https://e3050bfbe3dd49eeaaa1cbd0258afaab@o4505092836360192.ingest.sentry.io/4505092892393472",
-});
+// const Sentry = require("@sentry/node");
+// Sentry.init({
+//   dsn: "https://e3050bfbe3dd49eeaaa1cbd0258afaab@o4505092836360192.ingest.sentry.io/4505092892393472",
+// });
 
 import { config as dotenvConfig } from "dotenv";
 
@@ -19,7 +19,7 @@ import launchApi from "./routes/api/launchApi";
 import crewmanApi from "./routes/api/crewmanApi";
 
 const app = express();
-app.use(Sentry.Handlers.requestHandler());
+// app.use(Sentry.Handlers.requestHandler());
 //app.use(Sentry.Handlers.tracingHandler());
 
 const PORT = process.env.PORT || 80;
@@ -35,4 +35,4 @@ AppDataSource.initialize().then(() => {
     );
   }).catch(err => {throw new Error("Could not connect to data base")});
 
-app.use(Sentry.Handlers.errorHandler());
+// app.use(Sentry.Handlers.errorHandler());
