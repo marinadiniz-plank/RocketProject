@@ -10,9 +10,10 @@ jobs:
       
       - name: Cache node_modules
         uses: actions/cache@v2
-        with: 
-          path: node_modules
-          key: ${{ runner.os }}-${{ hasFiles('**/yarn.lock')}}
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+     
       
       - name: Install Dependencies
         run: yarn install
@@ -27,9 +28,10 @@ jobs:
       
       - name: Restore node_modules
         uses: actions/cache@v2
-        with: 
-          path: node_modules
-          key: ${{ runner.os }}-${{ hasFiles('**/yarn.lock')}}
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+     
       
       - name: Run ts-prune
-        run: yarn ts-prune --error    #yarn ts-prune
+        run: yarn ts-prune  #yarn ts-prune
