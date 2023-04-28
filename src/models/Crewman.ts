@@ -9,7 +9,6 @@ export class Crewman{
     @Column()
     private patent: string;
 
-
     constructor(name: string, id: number, patent: string){
         this.name=name;
         this.id=id;

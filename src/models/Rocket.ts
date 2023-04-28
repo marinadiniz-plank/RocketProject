@@ -1,5 +1,4 @@
-import { Entity, JoinColumn, Column, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Launch } from "./Launch";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("rocket")
 export class Rocket{
