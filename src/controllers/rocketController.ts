@@ -9,9 +9,7 @@ class RocketController {
             const rocket = await rocketservice.getRocket(id);
             return res.json(rocket);
         } catch (err) {
-            res.status(500).send(`Error in getting rockets ${err}`);
-            throw new Error("Error in getting rockets");
-            //return res.status(500).send(`Error in getting rockets ${err}`);
+            return res.status(500).send(`Error in getting rockets ${err}`);
         };
     };
 
