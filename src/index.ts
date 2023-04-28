@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import express from "express";
-import sentry from "@sentry/node";
+import { Handlers as sentry, init as sentryInit } from "@sentry/node";
 
-sentry.init({
+sentryInit({
   dsn: "https://e3050bfbe3dd49eeaaa1cbd0258afaab@o4505092836360192.ingest.sentry.io/4505092892393472",
 });
 
@@ -19,8 +19,8 @@ import launchApi from "./routes/api/launchApi";
 import crewmanApi from "./routes/api/crewmanApi";
 
 const app = express();
-app.use(sentry.Handlers.requestHandler());
-app.use(sentry.Handlers.tracingHandler());
+app.use(sentry.requestHandler());
+app.use(sentry.tracingHandler());
 const PORT = process.env.PORT || 80;
 AppDataSource.initialize().then(() => {
     app.use(express.json());
@@ -34,4 +34,4 @@ AppDataSource.initialize().then(() => {
     );
   }).catch(err => {throw new Error("Could not connect to data base")});
 
-app.use(sentry.Handlers.errorHandler());
+app.use(sentry.errorHandler());
