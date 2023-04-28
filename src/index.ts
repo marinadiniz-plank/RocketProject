@@ -20,7 +20,7 @@ import crewmanApi from "./routes/api/crewmanApi";
 
 const app = express();
 app.use(sentry.Handlers.requestHandler());
-
+app.use(sentry.Handlers.tracingHandler());
 const PORT = process.env.PORT || 80;
 AppDataSource.initialize().then(() => {
     app.use(express.json());
