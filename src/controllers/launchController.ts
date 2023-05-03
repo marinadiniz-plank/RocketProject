@@ -14,7 +14,7 @@ export class LaunchController {
     async getLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            const launch = await this.launchService.getLaunch(id);
+            const launch = await this.launchService.get(id);
             return res.json(launch);
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
@@ -23,7 +23,7 @@ export class LaunchController {
 
     async getLaunches(req: Request, res: Response) {
         try {
-            const launchs = await this.launchService.getLaunches();
+            const launchs = await this.launchService.getAll();
             return res.json(launchs);
         } catch (err) {
             return res.status(500).send(`Error in getting launchs ${err}`);
@@ -42,7 +42,7 @@ export class LaunchController {
                 rockets, 
                 crews
             );
-            const newestLaunch = await this.launchService.createLaunch(newLaunch);
+            const newestLaunch = await this.launchService.create(newLaunch);
             return res.json(newestLaunch);
         } catch (err) {
             return res.status(500).send(`Error in creating launch ${err}`);
@@ -52,8 +52,8 @@ export class LaunchController {
     async updateLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            if(await this.launchService.getLaunch(id)){
-                const updatedLaunch = this.launchService.updateLaunch(id, req.body);
+            if(await this.launchService.get(id)){
+                const updatedLaunch = this.launchService.update(id, req.body);
                 return res.json(updatedLaunch);
             }
            
@@ -65,8 +65,8 @@ export class LaunchController {
     async deleteLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            if(await this.launchService.getLaunch(id)){
-                const deletedLaunch = this.launchService.deleteLaunch(id);
+            if(await this.launchService.get(id)){
+                const deletedLaunch = this.launchService.delete(id);
                 return res.json(deletedLaunch);
             }
            

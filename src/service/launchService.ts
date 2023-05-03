@@ -4,23 +4,23 @@ import { Launch } from "../models/Launch";
 export class LaunchServices {
     constructor(private readonly launchRepository: LaunchRepository) {}
 
-    async getLaunch(id: number): Promise<Launch>{
+    async get(id: number): Promise<Launch>{
         return this.launchRepository.get(id);
     }
 
-    async getLaunches(): Promise<Launch[]>{
+    async getAll(): Promise<Launch[]>{
         return this.launchRepository.getAll();
     }
 
-    async createLaunch(launch: Launch): Promise<void>{
+    async create(launch: Launch): Promise<void>{
         return this.launchRepository.create(launch);
     }
 
-    async updateLaunch(id: number, launch: Launch): Promise<void>{
+    async update(id: number, launch: Launch): Promise<void>{
         return this.launchRepository.update(id, launch);
     }
 
-    async deleteLaunch(id: number): Promise<void>{
+    async delete(id: number): Promise<void>{
         return this.launchRepository.delete(id);
     }
 }
