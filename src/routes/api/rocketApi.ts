@@ -2,14 +2,13 @@ import express from 'express';
 const router = express.Router();
 import { rocketController } from '../../modules/rocketModule';
 
-console.log("im in route")
 router.route('/')
-    .get(rocketController.getRockets)
-    .post(rocketController.createRocket);
+    .get(rocketController.getRockets.bind(rocketController))
+    .post(rocketController.createRocket.bind(rocketController));
 
 router.route('/:id')
-    .get(rocketController.getRocket)
-    .put(rocketController.updateRocket)
-    .delete(rocketController.deleteRocket);
+    .get(rocketController.getRocket.bind(rocketController))
+    .put(rocketController.updateRocket.bind(rocketController))
+    .delete(rocketController.deleteRocket.bind(rocketController));
 
 export default router;

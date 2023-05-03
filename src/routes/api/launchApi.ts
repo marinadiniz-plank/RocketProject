@@ -3,12 +3,12 @@ const router = express.Router();
 import { launchController } from '../../modules/launchModule';
 
 router.route('/')
-    .get(launchController.getLaunches)
-    .post(launchController.createLaunch);
+    .get(launchController.getLaunches.bind(launchController))
+    .post(launchController.createLaunch.bind(launchController));
 
 router.route('/:id')
-    .get(launchController.getLaunch)
-    .put(launchController.updateLaunch)
-    .delete(launchController.deleteLaunch);
+    .get(launchController.getLaunch.bind(launchController))
+    .put(launchController.updateLaunch.bind(launchController))
+    .delete(launchController.deleteLaunch.bind(launchController));
 
 export default router;

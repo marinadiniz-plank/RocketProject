@@ -7,10 +7,9 @@ export class CrewmanRepository implements IRepository<Crewman>{
     crewmanRepository = AppDataSource.getRepository(Crewman)
 
     async get (id: number): Promise<Crewman> {
-        const one = await this.crewmanRepository.findOne({ where: { id: id } });
-        if(one == null)
-            throw new Error('Something bad happened');
-        return one;
+        const oneCrewman = await this.crewmanRepository.findOne({ where: { id: id } });
+        if(oneCrewman == null)  throw new Error('Could not find launch, try another id');
+        return oneCrewman;
     }
     
     async getAll (): Promise<Crewman[]> {
@@ -23,11 +22,10 @@ export class CrewmanRepository implements IRepository<Crewman>{
 
     async create (data: Crewman): Promise<void> {
         await this.crewmanRepository.save(data);
-        
     }
+
     async update (id: number, data: Partial<Crewman>) : Promise<void> {
         await this.crewmanRepository.update({ id }, data);
-        await this.crewmanRepository.findOne({ where: { id: id } });
     }
 
     async delete (id: number)  : Promise<void> {

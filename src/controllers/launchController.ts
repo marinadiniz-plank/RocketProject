@@ -3,11 +3,10 @@ import { LaunchServices } from "../service/launchService";
 import { Launch } from "../models/Launch";
 import { RocketServices } from "../service/rocketService";
 import { CrewServices } from "../service/crewService";
-import { launchServices } from "../modules/launchModule";
 
 export class LaunchController {
     constructor(
-        private readonly launchServices: LaunchServices, 
+        private readonly launchService: LaunchServices, 
         private readonly rocketService: RocketServices,
         private readonly crewService: CrewServices
     ) {}
@@ -15,7 +14,7 @@ export class LaunchController {
     async getLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            const launch = await launchServices.getLaunch(id);
+            const launch = await this.launchService.getLaunch(id);
             return res.json(launch);
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
@@ -24,8 +23,8 @@ export class LaunchController {
 
     async getLaunches(req: Request, res: Response) {
         try {
-            const launch = await launchServices.getLaunches();
-            return res.json(launch);
+            const launchs = await this.launchService.getLaunches();
+            return res.json(launchs);
         } catch (err) {
             return res.status(500).send(`Error in getting launchs ${err}`);
         };
@@ -34,14 +33,7 @@ export class LaunchController {
     async createLaunch(req: Request, res: Response) {
         try {
             const rockets = await this.rocketService.get(req.body.rocket);
-            if (!rockets) {
-				return res.status(404).json({ message: 'Rocket id does not exist!' })
-			}
-
             const crews = await this.crewService.get(req.body.crew);
-            if (!crews) {
-				return res.status(404).json({ message: 'Crew id does not exist!' })
-			}
             const newLaunch = new Launch(
                 req.body.id, 
                 req.body.launchCode, 
@@ -50,8 +42,8 @@ export class LaunchController {
                 rockets, 
                 crews
             );
-            const launch = await launchServices.createLaunch(newLaunch);
-            return res.json(launch);
+            const newestLaunch = await this.launchService.createLaunch(newLaunch);
+            return res.json(newestLaunch);
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
         };
@@ -60,12 +52,11 @@ export class LaunchController {
     async updateLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            if(id){
-                const launch = launchServices.updateLaunch(id, req.body);
-                return res.json(launch);
+            if(await this.launchService.getLaunch(id)){
+                const updatedLaunch = this.launchService.updateLaunch(id, req.body);
+                return res.json(updatedLaunch);
             }
-            else    
-                return res.status(500).send('id does not exist');
+           
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
         };
@@ -74,12 +65,11 @@ export class LaunchController {
     async deleteLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            if(id){
-                const launch = launchServices.deleteLaunch(id);
-                return res.json(launch);
+            if(await this.launchService.getLaunch(id)){
+                const deletedLaunch = this.launchService.deleteLaunch(id);
+                return res.json(deletedLaunch);
             }
-            else    
-                return res.status(500).send('id does not exist');
+           
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
         };

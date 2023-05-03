@@ -8,7 +8,6 @@ export class RocketServices {
     }
 
     async getAll(): Promise<Rocket[]> {
-        console.log(this.rocketRepository.getAll())
         return this.rocketRepository.getAll();
     }
 

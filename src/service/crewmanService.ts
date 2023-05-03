@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { CrewmanRepository } from "../repository/crewmanRepository";
 import { Crewman } from "../models/Crewman";
 
