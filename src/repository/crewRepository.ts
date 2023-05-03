@@ -1,6 +1,6 @@
 import { AppDataSource } from "../datasource/rocketproject";
 import { Crew } from "../models/Crew";
-import { IRepository } from "./Interfaces/IRepository";
+import { IRepository } from "./Interface/IRepository";
 
 export class CrewRepository implements IRepository<Crew>{
     private crewRepository = AppDataSource.getRepository(Crew)

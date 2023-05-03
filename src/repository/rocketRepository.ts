@@ -1,6 +1,6 @@
 import { AppDataSource } from '../datasource/rocketproject'
 import { Rocket } from '../models/Rocket'
-import { IRepository } from "./Interfaces/IRepository";
+import { IRepository } from "./Interface/IRepository";
 
 export class RocketRepository implements IRepository<Rocket> {
     rocketRepository = AppDataSource.getRepository(Rocket)

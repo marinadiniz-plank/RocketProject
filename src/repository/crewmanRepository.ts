@@ -1,6 +1,6 @@
 import { Crewman } from "../models/Crewman";
 import { AppDataSource } from "../datasource/rocketproject";
-import { IRepository } from "./Interfaces/IRepository";
+import { IRepository } from "./Interface/IRepository";
 import { In } from "typeorm";
 
 export class CrewmanRepository implements IRepository<Crewman>{

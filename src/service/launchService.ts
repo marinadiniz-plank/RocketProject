@@ -1,7 +1,8 @@
 import { LaunchRepository } from "../repository/launchRepository";
 import { Launch } from "../models/Launch";
+import { IService } from "./Interface/IService";
 
-export class LaunchServices {
+export class LaunchServices implements IService<Launch>{
     constructor(private readonly launchRepository: LaunchRepository) {}
 
     async get(id: number): Promise<Launch>{

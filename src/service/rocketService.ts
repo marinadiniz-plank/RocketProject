@@ -1,6 +1,7 @@
 import { Rocket } from "../models/Rocket";
 import {RocketRepository} from "../repository/rocketRepository";
-export class RocketServices {
+import { IService } from "./Interface/IService";
+export class RocketServices implements IService<Rocket>{
     constructor(private readonly rocketRepository: RocketRepository) {}
 
     async get(id: number): Promise<Rocket> {

@@ -1,7 +1,8 @@
 import { CrewmanRepository } from "../repository/crewmanRepository";
 import { Crewman } from "../models/Crewman";
+import { IService } from "./Interface/IService";
 
-export class CrewmanServices {
+export class CrewmanServices implements IService<Crewman>{
     constructor(private readonly crewmanRepository: CrewmanRepository) {}
 
     async get(id: number): Promise<Crewman>{
