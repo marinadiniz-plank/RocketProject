@@ -10,7 +10,7 @@ export class CrewmanController {
             const crewman = await this.crewmanServices.get(id);
             return res.json(crewman);
         } catch (err) {
-            return res.status(500).send(`Error in creating crewman ${err}`);
+            return res.status(500).send(`Error in getting a crewman ${err}`);
         };
     };
 
@@ -19,7 +19,7 @@ export class CrewmanController {
             const crewmans = await this.crewmanServices.getAll();
             return res.json(crewmans);
         } catch (err) {
-            return res.status(500).send(`Error in creating crewman ${err}`);
+            return res.status(500).send(`Error in getting crewmans ${err}`);
         };
     };
 
@@ -29,7 +29,7 @@ export class CrewmanController {
             const someCrewmans = await this.crewmanServices.getSome(id);
             return res.json(someCrewmans);
         } catch (err) {
-            return res.status(500).send(`Error in creating crewman ${err}`);
+            return res.status(500).send(`Error in getting some crewmans ${err}`);
         };
     };
 
@@ -55,7 +55,7 @@ export class CrewmanController {
                 return res.json(updatedCrewman);
             }
         } catch (err) {
-            return res.status(500).send(`Error in creating crewman ${err}`);
+            return res.status(500).send(`Error in updating crewman ${err}`);
         };
     };
 
@@ -67,7 +67,7 @@ export class CrewmanController {
                 return res.json(deletedCrewman);
             }
         } catch (err) {
-            return res.status(500).send(`Error in creating crewman ${err}`);
+            return res.status(500).send(`Error in deleting crewman ${err}`);
         };
     };
 }

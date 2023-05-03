@@ -7,7 +7,7 @@ export class CrewRepository implements IRepository<Crew>{
 
     async get (id: number): Promise<Crew> {
         const oneLaunch = await this.crewRepository.findOne({ where: { id: id } });
-        if(oneLaunch == null) throw new Error('Could not find launch, try another id');
+        if(oneLaunch == null) throw new Error('Could not find crew, try another id');
         return oneLaunch;
     }
     

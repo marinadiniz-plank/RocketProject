@@ -45,7 +45,7 @@ export class LaunchController {
             const newestLaunch = await this.launchService.createLaunch(newLaunch);
             return res.json(newestLaunch);
         } catch (err) {
-            return res.status(500).send(`Error in getting launch ${err}`);
+            return res.status(500).send(`Error in creating launch ${err}`);
         };
     };
 
@@ -58,7 +58,7 @@ export class LaunchController {
             }
            
         } catch (err) {
-            return res.status(500).send(`Error in getting launch ${err}`);
+            return res.status(500).send(`Error in updating launch ${err}`);
         };
     };
 
@@ -71,7 +71,7 @@ export class LaunchController {
             }
            
         } catch (err) {
-            return res.status(500).send(`Error in getting launch ${err}`);
+            return res.status(500).send(`Error in deleting launch ${err}`);
         };
     };
 }

@@ -8,7 +8,7 @@ export class CrewmanRepository implements IRepository<Crewman>{
 
     async get (id: number): Promise<Crewman> {
         const oneCrewman = await this.crewmanRepository.findOne({ where: { id: id } });
-        if(oneCrewman == null)  throw new Error('Could not find launch, try another id');
+        if(oneCrewman == null)  throw new Error('Could not find crewman, try another id');
         return oneCrewman;
     }
     
