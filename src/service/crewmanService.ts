@@ -1,25 +1,32 @@
 import { Request, Response } from "express";
-import crewmanRepository from "../repository/crewmanRepository";
+import { CrewmanRepository } from "../repository/crewmanRepository";
 import { Crewman } from "../models/Crewman";
 
-export default{
-    async getCrewman(id: number){
-        return crewmanRepository.getCrewman(id);
-    },
+export class CrewmanServices {
+    constructor(private readonly crewmanRepository: CrewmanRepository) {}
 
-    async getCrewmans(){
-        return crewmanRepository.getCrewmans();
-    },
-
-    async createCrewman(crewman: Crewman){
-        return crewmanRepository.createCrewman(crewman);
-    },
-
-    async updateCrewman(id: number, crewman: Crewman){
-        return crewmanRepository.updateCrewman(id, crewman);
-    },
-
-    async deleteCrewman(id: number){
-        return crewmanRepository.deleteCrewman(id);
+    async get(id: number): Promise<Crewman>{
+        return this.crewmanRepository.get(id);
     }
+
+    async getAll(): Promise<Crewman[]>{
+        return this.crewmanRepository.getAll();
+    }
+
+    async getSome(id: number[]): Promise<Crewman[]>{
+        return this.crewmanRepository.getSome(id);
+    }
+
+    async create(crewman: Crewman): Promise<void>{
+        return this.crewmanRepository.create(crewman);
+    }
+
+    async update(id: number, crewman: Crewman): Promise<void>{
+        return this.crewmanRepository.update(id, crewman);
+    }
+
+    async delete(id: number): Promise<void>{
+        return this.crewmanRepository.delete(id);
+    }
+    
 }

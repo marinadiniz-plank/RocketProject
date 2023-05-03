@@ -1,14 +1,21 @@
 import { Request, Response } from "express";
-import launchService from "../service/launchService";
+import { LaunchServices } from "../service/launchService";
 import { Launch } from "../models/Launch";
-import { rocketRepository } from "../repository/rocketRepository";
-import { crewRepository } from "../repository/crewRepository";
+import { RocketServices } from "../service/rocketService";
+import { CrewServices } from "../service/crewService";
+import { launchServices } from "../modules/launchModule";
 
-class LaunchController {
+export class LaunchController {
+    constructor(
+        private readonly launchServices: LaunchServices, 
+        private readonly rocketService: RocketServices,
+        private readonly crewService: CrewServices
+    ) {}
+
     async getLaunch(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            const launch = await launchService.getLaunch(id);
+            const launch = await launchServices.getLaunch(id);
             return res.json(launch);
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
@@ -17,7 +24,7 @@ class LaunchController {
 
     async getLaunches(req: Request, res: Response) {
         try {
-            const launch = await launchService.getLaunches();
+            const launch = await launchServices.getLaunches();
             return res.json(launch);
         } catch (err) {
             return res.status(500).send(`Error in getting launchs ${err}`);
@@ -26,12 +33,12 @@ class LaunchController {
 
     async createLaunch(req: Request, res: Response) {
         try {
-            const rockets = await rocketRepository.findOne({where: {id: req.body.rocket}});
+            const rockets = await this.rocketService.get(req.body.rocket);
             if (!rockets) {
 				return res.status(404).json({ message: 'Rocket id does not exist!' })
 			}
 
-            const crews = await crewRepository.findOne({where: {id: req.body.crew}});
+            const crews = await this.crewService.get(req.body.crew);
             if (!crews) {
 				return res.status(404).json({ message: 'Crew id does not exist!' })
 			}
@@ -43,7 +50,7 @@ class LaunchController {
                 rockets, 
                 crews
             );
-            const launch = await launchService.createLaunch(newLaunch);
+            const launch = await launchServices.createLaunch(newLaunch);
             return res.json(launch);
         } catch (err) {
             return res.status(500).send(`Error in getting launch ${err}`);
@@ -54,7 +61,7 @@ class LaunchController {
         try {
             const id = Number(req.params.id);
             if(id){
-                const launch = launchService.updateLaunch(id, req.body);
+                const launch = launchServices.updateLaunch(id, req.body);
                 return res.json(launch);
             }
             else    
@@ -68,7 +75,7 @@ class LaunchController {
         try {
             const id = Number(req.params.id);
             if(id){
-                const launch = launchService.deleteLaunch(id);
+                const launch = launchServices.deleteLaunch(id);
                 return res.json(launch);
             }
             else    
@@ -78,4 +85,3 @@ class LaunchController {
         };
     };
 }
-export default LaunchController;

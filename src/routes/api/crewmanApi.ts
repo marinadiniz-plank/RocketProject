@@ -1,8 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import CrewmanController from '../../controllers/crewmanController';
-
-const crewmanController = new CrewmanController();
+import { crewmanController } from '../../modules/crewmanModule';
 
 router.route('/')
     .get(crewmanController.getCrewmans)

@@ -1,21 +1,24 @@
 import { Request, Response, json } from "express";
-import rocketservice from "../service/rocketService";
+import { RocketServices } from "../service/rocketService";
 import { Rocket } from "../models/Rocket";
-
-class RocketController {
+import { rocketServices } from "../modules/rocketModule";
+export class RocketController {
+    constructor(private readonly rocketServices: RocketServices) {}
+   
     async getRocket(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            const rocket = await rocketservice.getRocket(id);
+            const rocket = await rocketServices.get(id);
             return res.json(rocket);
         } catch (err) {
             return res.status(500).send(`Error in getting rockets ${err}`);
         };
     };
 
-    async getRockets(req: Request, res: Response) {
-        try {
-            const rocket = await rocketservice.getRockets();
+    async getRockets(req: Request, res: Response) {   
+        try {          
+            const rocket = await rocketServices.getAll();
+            console.log(rocket)
             return res.json(rocket);
         } catch (err) {
             return res.status(500).send(`Error in getting rockets ${err}`);
@@ -25,7 +28,7 @@ class RocketController {
     async createRocket(req: Request, res: Response) {
         try {
             const newRocket = new Rocket(req.body.name, req.body.id);
-            const rocket = await rocketservice.createRocket(newRocket);
+            const rocket = await rocketServices.create(newRocket);
             return res.json(rocket);
         } catch (err) {
             return res.status(500).send(`Error in creating rockets ${err}`);
@@ -36,7 +39,7 @@ class RocketController {
         try {
             const id = Number(req.params.id);
             if(id){
-                const rocket = rocketservice.updateRocket(id, req.body);
+                const rocket = rocketServices.update(id, req.body);
                 return res.json(rocket);
             }
             else    
@@ -50,7 +53,7 @@ class RocketController {
         try {
             const id = Number(req.params.id);
             if(id){
-                const rocket = rocketservice.deleteRocket(id);
+                const rocket = rocketServices.delete(id);
                 return res.json(rocket);
             }
             else    
@@ -61,4 +64,3 @@ class RocketController {
         };
     };
 }
-export default RocketController;

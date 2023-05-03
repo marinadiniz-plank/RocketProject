@@ -1,24 +1,26 @@
-import launchRepository from "../repository/launchRepository";
+import { LaunchRepository } from "../repository/launchRepository";
 import { Launch } from "../models/Launch";
 
-export default{
-    async getLaunch(id: number){
-        return launchRepository.getLaunch(id);
-    },
+export class LaunchServices {
+    constructor(private readonly launchRepository: LaunchRepository) {}
 
-    async getLaunches(){
-        return launchRepository.getLaunches();
-    },
+    async getLaunch(id: number): Promise<Launch>{
+        return this.launchRepository.get(id);
+    }
 
-    async createLaunch(launch: Launch){
-        return launchRepository.createLaunch(launch);
-    },
+    async getLaunches(): Promise<Launch[]>{
+        return this.launchRepository.getAll();
+    }
 
-    async updateLaunch(id: number, launch: Launch){
-        return launchRepository.updateLaunch(id, launch);
-    },
+    async createLaunch(launch: Launch): Promise<void>{
+        return this.launchRepository.create(launch);
+    }
 
-    async deleteLaunch(id: number){
-        return launchRepository.deleteLaunch(id);
+    async updateLaunch(id: number, launch: Launch): Promise<void>{
+        return this.launchRepository.update(id, launch);
+    }
+
+    async deleteLaunch(id: number): Promise<void>{
+        return this.launchRepository.delete(id);
     }
 }

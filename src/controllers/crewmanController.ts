@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import crewmanService from "../service/crewmanService";
+import { CrewmanServices } from "../service/crewmanService";
 import { Crewman } from "../models/Crewman";
+import { crewmanServices } from "../modules/crewmanModule";
+export class CrewmanController {
+    constructor(private readonly crewmanServices: CrewmanServices) {}
 
-class CrewController {
     async getCrewman(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
-            const crewman = await crewmanService.getCrewman(id);
+            const crewman = await crewmanServices.get(id);
             return res.json(crewman);
         } catch (err) {
             return res.status(500).send(`Error in creating crewman ${err}`);
@@ -15,7 +17,17 @@ class CrewController {
 
     async getCrewmans(req: Request, res: Response) {
         try {
-            const crewman = await crewmanService.getCrewmans();
+            const crewman = await crewmanServices.getAll();
+            return res.json(crewman);
+        } catch (err) {
+            return res.status(500).send(`Error in creating crewman ${err}`);
+        };
+    };
+
+    async getSomeCrewmans(req: Request, res: Response) {
+        try {
+            const id: number[] = [Number(req.params.id)];
+            const crewman = await crewmanServices.getSome(id);
             return res.json(crewman);
         } catch (err) {
             return res.status(500).send(`Error in creating crewman ${err}`);
@@ -29,7 +41,7 @@ class CrewController {
                 req.body.id,
                 req.body.patent
             );
-            const crewman = await crewmanService.createCrewman(newCrewman);
+            const crewman = await crewmanServices.create(newCrewman);
             return res.json(crewman);
         } catch (err) {
             return res.status(500).send(`Error in creating crewman ${err}`);
@@ -40,7 +52,7 @@ class CrewController {
         try {
             const id = Number(req.params.id);
             if (id) {
-                const crewman = crewmanService.updateCrewman(id, req.body);
+                const crewman = crewmanServices.update(id, req.body);
                 return res.json(crewman);
             }
             else
@@ -54,7 +66,7 @@ class CrewController {
         try {
             const id = Number(req.params.id);
             if (id) {
-                const crewman = crewmanService.deleteCrewman(id);
+                const crewman = crewmanServices.delete(id);
                 return res.json(crewman);
             }
             else
@@ -65,4 +77,3 @@ class CrewController {
         };
     };
 }
-export default CrewController;

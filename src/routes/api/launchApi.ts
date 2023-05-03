@@ -1,7 +1,6 @@
 import express from 'express';
-import LaunchController from '../../controllers/launchController';
 const router = express.Router();
-const launchController = new LaunchController();
+import { launchController } from '../../modules/launchModule';
 
 router.route('/')
     .get(launchController.getLaunches)

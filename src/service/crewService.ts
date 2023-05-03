@@ -1,24 +1,26 @@
-import crewRepository from "../repository/crewRepository";
+import { CrewRepository } from "../repository/crewRepository";
 import { Crew } from "../models/Crew";
 
-export default{
-    async getCrew(id: number){
-        return crewRepository.getCrew(id);
-    },
+export class CrewServices {
+    constructor(private readonly crewRepository: CrewRepository) {}
 
-    async getCrews(){
-        return crewRepository.getCrews();
-    },
+    async get(id: number): Promise<Crew>{
+        return this.crewRepository.get(id);
+    }
 
-    async createCrew(crew: Crew){
-        return crewRepository.createCrew(crew);
-    },
+    async getAll(): Promise<Crew[]>{
+        return this.crewRepository.getAll();
+    }
 
-    async updateCrew(id: number, crew: Crew){
-        return crewRepository.updateCrew(id, crew);
-    },
+    async create(crew: Crew): Promise<void>{
+        return this.crewRepository.create(crew);
+    }
 
-    async deleteCrew(id: number){
-        return crewRepository.deleteCrew(id);
+    async update(id: number, crew: Crew): Promise<void>{
+        return this.crewRepository.update(id, crew);
+    }
+
+    async delete(id: number): Promise<void>{
+        return this.crewRepository.delete(id);
     }
 }

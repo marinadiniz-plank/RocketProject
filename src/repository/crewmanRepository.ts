@@ -1,33 +1,37 @@
 import { Crewman } from "../models/Crewman";
 import { AppDataSource } from "../datasource/rocketproject";
+import { IRepository } from "./Interfaces/IRepository";
+import { In } from "typeorm";
 
-export const crewmanRepository = AppDataSource.getRepository(Crewman)
+export class CrewmanRepository implements IRepository<Crewman>{
+    crewmanRepository = AppDataSource.getRepository(Crewman)
 
-const getCrewman = async (id: number) => {
-    const one = await crewmanRepository.findOne({ where: { id: id } });
-    if(one == null)
-        throw new Error('Something bad happened');
-    return one;
-};
+    async get (id: number): Promise<Crewman> {
+        const one = await this.crewmanRepository.findOne({ where: { id: id } });
+        if(one == null)
+            throw new Error('Something bad happened');
+        return one;
+    }
+    
+    async getAll (): Promise<Crewman[]> {
+        return await this.crewmanRepository.find();
+    }
 
-const getCrewmans = async () => {
-    return await crewmanRepository.find();
-};
+    async getSome(id: number[]): Promise<Crewman[]>{
+        return this.crewmanRepository.findBy({id: In(id)});
+    }
 
-const createCrewman = async (data: Crewman) => {
-    const crewman = crewmanRepository.create(data);
-    await crewmanRepository.save(data);
-    return crewman;
-};
+    async create (data: Crewman): Promise<void> {
+        await this.crewmanRepository.save(data);
+        
+    }
+    async update (id: number, data: Partial<Crewman>) : Promise<void> {
+        await this.crewmanRepository.update({ id }, data);
+        await this.crewmanRepository.findOne({ where: { id: id } });
+    }
 
-const updateCrewman = async  (id: number, data: Partial<Crewman>) => {
-    await crewmanRepository.update({ id }, data);
-    return await crewmanRepository.findOne({ where: { id: id } });
-};
+    async delete (id: number)  : Promise<void> {
+        await this.crewmanRepository.delete({ id });
+    }   
 
-const deleteCrewman = async (id: number) => {
-    await crewmanRepository.delete({ id });
-    return { deleted: true };
-};
-
-export default {getCrewman, getCrewmans, createCrewman, updateCrewman, deleteCrewman }
+}

@@ -1,35 +1,32 @@
 import { Launch } from "../models/Launch";
 import { AppDataSource } from "../datasource/rocketproject";
+import { IRepository } from "./Interfaces/IRepository";
 
-export const launchRepository = AppDataSource.getRepository(Launch)
+export class LaunchRepository implements IRepository<Launch> {
+  launchRepository = AppDataSource.getRepository(Launch);
 
-const getLaunch = async (id: number) => {
-    const one = await launchRepository.findOne({ where: { id: id } });
-    if(one == null)
-        throw new Error('Something bad happened');
+  async get(id: number): Promise<Launch> {
+    const one = await this.launchRepository.findOne({ where: { id: id } });
+    if (one == null) throw new Error("Something bad happened");
     return one;
-};
+  }
 
-const getLaunches = async () => {
-    console.log(await launchRepository.find())
-    return await launchRepository.find();  
-};
+  async getAll(): Promise<Launch[]> {
+    console.log(await this.launchRepository.find());
+    return await this.launchRepository.find();
+  }
 
-const createLaunch = async (data: Launch) => {
-    console.log(data)
-    const launch = launchRepository.create(data);
-    await launchRepository.save(data);
-    return launch;
-};
+  async create(data: Launch): Promise<void> {
+    console.log(data);
+    const launch = this.launchRepository.create(data);
+    await this.launchRepository.save(data);
+  }
+  async update(id: number, data: Partial<Launch>): Promise<void> {
+    await this.launchRepository.update({ id }, data);
+    await this.launchRepository.findOne({ where: { id: id } });
+  }
 
-const updateLaunch = async (id: number, data: Partial<Launch>) => {
-    await launchRepository.update({ id }, data);
-    return await launchRepository.findOne({ where: { id: id } });
-};
-
-const deleteLaunch = async (id: number) => {
-    await launchRepository.delete({ id });
-    return { deleted: true };
-};
-
-export default { getLaunch, getLaunches, createLaunch, updateLaunch, deleteLaunch }
+  async delete(id: number): Promise<void> {
+    await this.launchRepository.delete({ id });
+  }
+}

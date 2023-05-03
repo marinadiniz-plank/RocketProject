@@ -1,24 +1,26 @@
 import { Rocket } from "../models/Rocket";
-import rocketRepository from "../repository/rocketRepository";
+import {RocketRepository} from "../repository/rocketRepository";
+export class RocketServices {
+    constructor(private readonly rocketRepository: RocketRepository) {}
 
-export default{
-    async getRocket(id: number){
-        return rocketRepository.getRocket(id);
-    },
+    async get(id: number): Promise<Rocket> {
+        return this.rocketRepository.get(id);
+    }
 
-    async getRockets(){
-        return rocketRepository.getRockets();
-    },
+    async getAll(): Promise<Rocket[]> {
+        console.log(this.rocketRepository.getAll())
+        return this.rocketRepository.getAll();
+    }
 
-    async createRocket(rocket: Rocket){
-        return rocketRepository.createRocket(rocket);
-    },
+    async create(rocket: Rocket): Promise<void> {
+        return this.rocketRepository.create(rocket);
+    }
 
-    async updateRocket(id: number, rocket: Rocket){
-        return rocketRepository.updateRocket(id, rocket);
-    },
+    async update(id: number, rocket: Rocket): Promise<void> {
+        return this.rocketRepository.update (id, rocket);
+    }
 
-    async deleteRocket(id: number){
-        return rocketRepository.deleteRocket(id);
+    async delete(id: number): Promise<void> {
+        return this.rocketRepository.delete(id);
     }
 }
