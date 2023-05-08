@@ -3,12 +3,12 @@ const router = express.Router();
 import { rocketController } from '../../modules/rocketModule';
 
 router.route('/')
-    .get(rocketController.getRockets.bind(rocketController))
-    .post(rocketController.createRocket.bind(rocketController));
+    .get(rocketController.get.bind(rocketController))
+    .post(rocketController.create.bind(rocketController));
 
 router.route('/:id')
-    .get(rocketController.getRocket.bind(rocketController))
-    .put(rocketController.updateRocket.bind(rocketController))
-    .delete(rocketController.deleteRocket.bind(rocketController));
+    .get(rocketController.get.bind(rocketController))
+    .put(rocketController.update.bind(rocketController))
+    .delete(rocketController.delete.bind(rocketController));
 
 export default router;
