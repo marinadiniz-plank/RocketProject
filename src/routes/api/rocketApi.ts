@@ -3,7 +3,7 @@ const router = express.Router();
 import { rocketController } from '../../modules/rocketModule';
 
 router.route('/')
-    .get(rocketController.get.bind(rocketController))
+    .get(rocketController.getAll.bind(rocketController))
     .post(rocketController.create.bind(rocketController));
 
 router.route('/:id')

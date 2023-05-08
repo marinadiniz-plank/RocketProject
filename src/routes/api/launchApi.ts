@@ -3,7 +3,7 @@ const router = express.Router();
 import { launchController } from '../../modules/launchModule';
 
 router.route('/')
-    .get(launchController.get.bind(launchController))
+    .get(launchController.getAll.bind(launchController))
     .post(launchController.create.bind(launchController));
 
 router.route('/:id')

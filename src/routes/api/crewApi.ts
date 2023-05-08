@@ -3,7 +3,7 @@ const router = express.Router();
 import { crewController } from '../../modules/crewModule';
 
 router.route('/')
-    .get(crewController.get.bind(crewController))
+    .get(crewController.getAll.bind(crewController))
     .post(crewController.create.bind(crewController));
     
 router.route('/:id')
