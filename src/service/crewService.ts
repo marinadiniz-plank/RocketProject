@@ -13,7 +13,7 @@ export class CrewServices implements IService<Crew>{
         return this.crewRepository.getAll();
     }
 
-    async create(crew: Crew): Promise<void>{
+    async create(crew: Crew): Promise<Crew>{
         return this.crewRepository.create(crew);
     }
 

@@ -15,8 +15,8 @@ export class CrewRepository implements IRepository<Crew>{
         return await this.crewRepository.find();
     }
 
-    async create (data: Crew): Promise<void> {
-        await this.crewRepository.save(data);
+    async create (data: Crew): Promise<Crew> {
+        return await this.crewRepository.save(data);
     }
     
     async update (id: number, data: Partial<Crew>) : Promise<void> {

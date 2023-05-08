@@ -12,7 +12,7 @@ export class RocketServices implements IService<Rocket>{
         return this.rocketRepository.getAll();
     }
 
-    async create(rocket: Rocket): Promise<void> {
+    async create(rocket: Rocket): Promise<Rocket> {
         return this.rocketRepository.create(rocket);
     }
 

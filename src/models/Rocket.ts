@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 @Entity("rocket")
 export class Rocket{
     @Column()
-    private name: string;
+    public name: string;
     @PrimaryGeneratedColumn()
     public id: number;
 

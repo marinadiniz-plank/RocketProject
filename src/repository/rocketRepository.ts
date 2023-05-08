@@ -13,11 +13,15 @@ export class RocketRepository implements IRepository<Rocket> {
     }
   
     async getAll(): Promise<Rocket[]> {
+        console.log("estou aqui");
+        
         return await this.rocketRepository.find();
     }
   
-    async create(data: Rocket): Promise<void> {
-        await this.rocketRepository.save(data);
+    async create(data: Rocket): Promise<Rocket> {
+        console.log("estou no repositpry");
+        
+        return await this.rocketRepository.save(data);
     }
     async update(id: number, data: Partial<Rocket>): Promise<void> {
         await this.rocketRepository.update({ id }, data);

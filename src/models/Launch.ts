@@ -7,11 +7,11 @@ export class Launch{
     @PrimaryGeneratedColumn()
     public id: number;
     @Column()
-    private launchCode: number;
+    launchCode: number;
     @CreateDateColumn()
-    private date: string;
+    date: string;
     @Column()
-    private success: boolean;
+    success: boolean;
 
     @OneToOne(() => Rocket, {eager: true})
     @JoinColumn({name: "rocket_id"})

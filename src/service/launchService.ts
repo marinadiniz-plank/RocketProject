@@ -13,7 +13,7 @@ export class LaunchServices implements IService<Launch>{
         return this.launchRepository.getAll();
     }
 
-    async create(launch: Launch): Promise<void>{
+    async create(launch: Launch): Promise<Launch>{
         return this.launchRepository.create(launch);
     }
 

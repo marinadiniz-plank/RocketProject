@@ -3,34 +3,37 @@ import { LaunchServices } from "../service/launchService";
 import { Launch } from "../models/Launch";
 import { RocketServices } from "../service/rocketService";
 import { CrewServices } from "../service/crewService";
+import { IController } from "./Interface/IController";
 
-export class LaunchController {
+export class LaunchController implements IController<Launch>{
     constructor(
         private readonly launchService: LaunchServices, 
         private readonly rocketService: RocketServices,
         private readonly crewService: CrewServices
     ) {}
 
-    async getLaunch(req: Request, res: Response) {
+    async get(req: Request, res: Response): Promise<Launch | undefined> {
         try {
             const id = Number(req.params.id);
             const launch = await this.launchService.get(id);
-            return res.json(launch);
+            res.json(launch);
+            return launch;
         } catch (err) {
-            return res.status(500).send(`Error in getting launch ${err}`);
+            res.status(500).send(`Error in getting launch ${err}`);
         };
     };
 
-    async getLaunches(req: Request, res: Response) {
+    async getAll(req: Request, res: Response): Promise<Launch[] | undefined> {
         try {
             const launchs = await this.launchService.getAll();
-            return res.json(launchs);
+            res.json(launchs);
+            return launchs;
         } catch (err) {
-            return res.status(500).send(`Error in getting launchs ${err}`);
+            res.status(500).send(`Error in getting launchs ${err}`);
         };
     };
 
-    async createLaunch(req: Request, res: Response) {
+    async create(req: Request, res: Response): Promise<Launch | undefined> {
         try {
             const rockets = await this.rocketService.get(req.body.rocket);
             const crews = await this.crewService.get(req.body.crew);
@@ -42,36 +45,41 @@ export class LaunchController {
                 rockets, 
                 crews
             );
+            console.log(newLaunch);
+            
             const newestLaunch = await this.launchService.create(newLaunch);
-            return res.json(newestLaunch);
+            res.json(newestLaunch);
+            return newLaunch;
         } catch (err) {
-            return res.status(500).send(`Error in creating launch ${err}`);
+            res.status(500).send(`Error in creating launch ${err}`);
         };
     };
 
-    async updateLaunch(req: Request, res: Response) {
+    async update(req: Request, res: Response): Promise<void | undefined> {
         try {
             const id = Number(req.params.id);
             if(await this.launchService.get(id)){
                 const updatedLaunch = this.launchService.update(id, req.body);
-                return res.json(updatedLaunch);
+                res.json(updatedLaunch);
+                return updatedLaunch;
             }
            
         } catch (err) {
-            return res.status(500).send(`Error in updating launch ${err}`);
+            res.status(500).send(`Error in updating launch ${err}`);
         };
     };
 
-    async deleteLaunch(req: Request, res: Response) {
+    async delete(req: Request, res: Response): Promise<void | undefined> {
         try {
             const id = Number(req.params.id);
             if(await this.launchService.get(id)){
                 const deletedLaunch = this.launchService.delete(id);
-                return res.json(deletedLaunch);
+                res.json(deletedLaunch);
+                return deletedLaunch;
             }
            
         } catch (err) {
-            return res.status(500).send(`Error in deleting launch ${err}`);
+            res.status(500).send(`Error in deleting launch ${err}`);
         };
     };
 }

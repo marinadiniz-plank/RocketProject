@@ -17,7 +17,7 @@ export class CrewmanServices implements IService<Crewman>{
         return this.crewmanRepository.getSome(id);
     }
 
-    async create(crewman: Crewman): Promise<void>{
+    async create(crewman: Crewman): Promise<Crewman>{
         return this.crewmanRepository.create(crewman);
     }
 

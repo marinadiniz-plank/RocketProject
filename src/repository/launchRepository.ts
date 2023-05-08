@@ -15,8 +15,8 @@ export class LaunchRepository implements IRepository<Launch> {
     return await this.launchRepository.find();
   }
 
-  async create(data: Launch): Promise<void> {
-    await this.launchRepository.save(data);
+  async create(data: Launch): Promise<Launch> {
+    return await this.launchRepository.save(data);
   }
   async update(id: number, data: Partial<Launch>): Promise<void> {
     await this.launchRepository.update({ id }, data);

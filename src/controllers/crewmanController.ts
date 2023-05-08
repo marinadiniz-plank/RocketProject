@@ -1,73 +1,76 @@
 import { Request, Response } from "express";
 import { CrewmanServices } from "../service/crewmanService";
 import { Crewman } from "../models/Crewman";
-export class CrewmanController {
+import { IController } from "./Interface/IController";
+export class CrewmanController implements IController<Crewman>{
     constructor(private readonly crewmanServices: CrewmanServices) {}
 
-    async getCrewman(req: Request, res: Response) {
+    async get(req: Request, res: Response): Promise<Crewman | undefined> {
         try {
             const id = Number(req.params.id);
             const crewman = await this.crewmanServices.get(id);
-            return res.json(crewman);
+            res.json(crewman);
+            return crewman;
         } catch (err) {
-            return res.status(500).send(`Error in getting a crewman ${err}`);
+            res.status(500).send(`Error in getting a crewman ${err}`);
         };
     };
 
-    async getCrewmans(req: Request, res: Response) {
+    async getAll(req: Request, res: Response): Promise<Crewman[] | undefined> {
         try {
             const crewmans = await this.crewmanServices.getAll();
-            return res.json(crewmans);
+            res.json(crewmans);
+            return crewmans;
         } catch (err) {
-            return res.status(500).send(`Error in getting crewmans ${err}`);
+            res.status(500).send(`Error in getting crewmans ${err}`);
         };
     };
 
-    async getSomeCrewmans(req: Request, res: Response) {
+    async getSomeCrewmans(req: Request, res: Response): Promise<Crewman[] | undefined> {
         try {
             const id: number[] = [Number(req.params.id)];
             const someCrewmans = await this.crewmanServices.getSome(id);
-            return res.json(someCrewmans);
+            res.json(someCrewmans);
+            return someCrewmans;
         } catch (err) {
-            return res.status(500).send(`Error in getting some crewmans ${err}`);
+            res.status(500).send(`Error in getting some crewmans ${err}`);
         };
     };
 
-    async createCrewmans(req: Request, res: Response) {
+    async create(req: Request, res: Response): Promise<Crewman | undefined> {
         try {
-            const newCrewman = new Crewman(
-                req.body.name,
-                req.body.id,
-                req.body.patent
-            );
+            const newCrewman = new Crewman(req.body.name, req.body.id, req.body.patent);
             const newestCrewman = await this.crewmanServices.create(newCrewman);
-            return res.json(newestCrewman);
+            res.json(newestCrewman);
+            return newestCrewman;
         } catch (err) {
-            return res.status(500).send(`Error in creating crewman ${err}`);
+            res.status(500).send(`Error in creating crewman ${err}`);
         };
     };
 
-    async updateCrewmans(req: Request, res: Response) {
+    async update(req: Request, res: Response): Promise<void | undefined> {
         try {
             const id = Number(req.params.id);
             if (await this.crewmanServices.get(id)) {
                 const updatedCrewman = this.crewmanServices.update(id, req.body);
-                return res.json(updatedCrewman);
+                res.json(updatedCrewman);
+                return updatedCrewman;
             }
         } catch (err) {
-            return res.status(500).send(`Error in updating crewman ${err}`);
+            res.status(500).send(`Error in updating crewman ${err}`);
         };
     };
 
-    async deleteCrewmans(req: Request, res: Response) {
+    async delete(req: Request, res: Response): Promise<void | undefined> {
         try {
             const id = Number(req.params.id);
             if (await this.crewmanServices.get(id)) {
                 const deletedCrewman = this.crewmanServices.delete(id);
-                return res.json(deletedCrewman);
+                res.json(deletedCrewman);
+                return deletedCrewman;
             }
         } catch (err) {
-            return res.status(500).send(`Error in deleting crewman ${err}`);
+            res.status(500).send(`Error in deleting crewman ${err}`);
         };
     };
 }

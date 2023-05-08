@@ -20,8 +20,8 @@ export class CrewmanRepository implements IRepository<Crewman>{
         return this.crewmanRepository.findBy({id: In(id)});
     }
 
-    async create (data: Crewman): Promise<void> {
-        await this.crewmanRepository.save(data);
+    async create (data: Crewman): Promise<Crewman> {
+        return await this.crewmanRepository.save(data);
     }
 
     async update (id: number, data: Partial<Crewman>) : Promise<void> {
