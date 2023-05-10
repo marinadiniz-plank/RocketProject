@@ -15,10 +15,12 @@ import rocketApi from "./routes/api/rocketApi";
 import crewApi from "./routes/api/crewApi";
 import launchApi from "./routes/api/launchApi";
 import crewmanApi from "./routes/api/crewmanApi";
+import { CorsConfig } from "./config/corsConfig";
 
 const app = express();
 app.use(sentry.requestHandler());
 app.use(sentry.tracingHandler());
+app.use(CorsConfig);
 
 const PORT = process.env.PORT || 80;
 
