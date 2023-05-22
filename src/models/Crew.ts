@@ -12,7 +12,7 @@ export class Crew{
     @JoinTable({name: "crew_crewman"})
     crewman : Crewman[];
 
-    constructor( name: string, crewman: Crewman[], id: number){
+    constructor( id: number, name: string, crewman: Crewman[]){
         this.id = id;
         this.name = name;
         this.crewman = crewman;
