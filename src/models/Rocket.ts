@@ -7,8 +7,8 @@ export class Rocket{
     @PrimaryGeneratedColumn()
     public id: number;
 
-    constructor(name: string, id: number){
-        this.name = name;
+    constructor(id: number, name: string ){
         this.id = id;
+        this.name = name;
     }
 }

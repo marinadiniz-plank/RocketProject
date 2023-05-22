@@ -9,9 +9,9 @@ export class Crewman{
     @Column()
     public patent: string;
 
-    constructor(name: string, id: number, patent: string){
-        this.name=name;
+    constructor(id: number, name: string, patent: string){
         this.id=id;
+        this.name=name;
         this.patent=patent;
     }
 }
