@@ -3,10 +3,10 @@ import { Crewman } from "./Crewman";
 
 @Entity("crew")
 export class Crew{
-    @Column()
-    public name: string;
     @PrimaryGeneratedColumn()
     public id: number;
+    @Column()
+    public name: string;
 
     @ManyToMany(() => Crewman, {eager: true})
     @JoinTable({name: "crew_crewman"})
