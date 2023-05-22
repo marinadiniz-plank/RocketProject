@@ -29,7 +29,9 @@ export class RocketController implements IController<Rocket>{
 
     async create(req: Request, res: Response): Promise<Rocket | undefined> {
         try {
-            const newRocket = new Rocket(req.body.name, req.body.id);
+            const newRocket = new Rocket(req.body.name);
+            console.log(newRocket);
+            
             const newestRocket = await this.rocketServices.create(newRocket);
             res.json(newestRocket);
             return newestRocket;

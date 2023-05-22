@@ -38,7 +38,6 @@ export class LaunchController implements IController<Launch>{
             const rockets = await this.rocketService.get(req.body.rocket);
             const crews = await this.crewService.get(req.body.crew);
             const newLaunch = new Launch(
-                req.body.id, 
                 req.body.launchCode, 
                 req.body.date, 
                 req.body.success,

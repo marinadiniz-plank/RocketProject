@@ -5,7 +5,7 @@ import { Crew } from "./Crew";
 @Entity("launch")
 export class Launch{
     @PrimaryGeneratedColumn()
-    public id: number;
+    public id?: number;
     @Column()
     launchCode: number;
     @CreateDateColumn()
@@ -21,9 +21,8 @@ export class Launch{
     @JoinColumn({name: "crew_id"})
     crew: Crew;
 
-    constructor(id: number, launch: number, date: string, success: boolean, 
+    constructor(launch: number, date: string, success: boolean, 
          rocket: Rocket, crew: Crew){
-        this.id = id;
         this.launchCode = launch;
         this.date =date;
         this.success = success;

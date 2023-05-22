@@ -4,7 +4,7 @@ import { Crewman } from "./Crewman";
 @Entity("crew")
 export class Crew{
     @PrimaryGeneratedColumn()
-    public id: number;
+    public id?: number;
     @Column()
     public name: string;
 
@@ -12,8 +12,7 @@ export class Crew{
     @JoinTable({name: "crew_crewman"})
     crewman : Crewman[];
 
-    constructor( id: number, name: string, crewman: Crewman[]){
-        this.id = id;
+    constructor( name: string, crewman: Crewman[]){
         this.name = name;
         this.crewman = crewman;
     }

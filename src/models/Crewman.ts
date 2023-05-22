@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 @Entity("crewman")
 export class Crewman{
     @PrimaryGeneratedColumn()
-    public id: number;
+    public id?: number;
 
     @Column()
     public name: string;
@@ -11,8 +11,7 @@ export class Crewman{
     @Column()
     public patent: string;
 
-    constructor(id: number, name: string, patent: string){
-        this.id=id;
+    constructor(name: string, patent: string){
         this.name=name;
         this.patent=patent;
     }

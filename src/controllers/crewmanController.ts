@@ -39,7 +39,7 @@ export class CrewmanController implements IController<Crewman>{
 
     async create(req: Request, res: Response): Promise<Crewman | undefined> {
         try {
-            const newCrewman = new Crewman(req.body.name, req.body.id, req.body.patent);
+            const newCrewman = new Crewman(req.body.name, req.body.patent);
             const newestCrewman = await this.crewmanServices.create(newCrewman);
             res.json(newestCrewman);
             return newestCrewman;

@@ -36,7 +36,6 @@ export class CrewController implements IController<Crew>{
             const crewmans = await this.crewmanServices.getSome(req.body.crewman);
             const newCrew = new Crew(
                 req.body.name,
-                req.body.id,
                 crewmans
         );
             const newestCrew = await this.crewServices.create(newCrew);
