@@ -7,7 +7,7 @@ export class Rocket{
     @Column()
     public name: string;
 
-    constructor(id: number, name: string ){
+    constructor(name: string, id: number ){
         this.id = id;
         this.name = name;
     }
