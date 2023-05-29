@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Crew } from "./Crew";
 import { Rocket } from "./Rocket";
 
@@ -8,7 +8,7 @@ export class Launch {
     public id?: number;
     @Column()
     launchCode: string;
-    @CreateDateColumn()
+    @Column()
     date: string;
     @Column()
     success: boolean;
