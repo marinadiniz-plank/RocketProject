@@ -6,8 +6,7 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "jest",
-    "vercel-build": "npm run typeorm migration:run"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
