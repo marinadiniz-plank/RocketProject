@@ -1,6 +1,6 @@
 import cors from "cors";
 
-const corsWhiteList = ['https://www.google.com', 'null', 'http://127.0.0.1:5500', 'http://localhost:5173', 'https://rocketproject-frontend-ad39sjyeb-marinadiniz-plank.vercel.app/'];
+const corsWhiteList = ['https://www.google.com', 'null', 'http://127.0.0.1:5500', 'http://localhost:5173', 'https://rocketproject-frontend.vercel.app/'];
 
 const corsOption: cors.CorsOptions = {
 	origin: (origin, callback) => {
