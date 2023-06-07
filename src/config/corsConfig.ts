@@ -15,7 +15,7 @@ const corsOption: cors.CorsOptions = {
     } else {
       console.log(origin);
 
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     }
   },
   optionsSuccessStatus: 200,
